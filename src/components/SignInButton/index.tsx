@@ -1,5 +1,5 @@
 import { signIn, signOut, useSession } from "next-auth/react"
-
+import Image from "next/image"
 import styles from "./styles.module.scss"
 import { FaGithub } from "react-icons/fa"
 import { FiX } from "react-icons/fi"
@@ -12,7 +12,7 @@ export function SignInButton() {
         type="button" 
         className={styles.signInButton}
         onClick={()=> signOut()}>
-            <img src={session?.user?.image!} alt="Foto do usuário" />
+            <Image width={35} height={35} src={session?.user?.image!} alt="Foto do usuário" />
             Olá {session?.user?.name}
             <FiX color="#737380" className={styles.closeIcon}/>
         </button>

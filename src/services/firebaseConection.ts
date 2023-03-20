@@ -1,5 +1,7 @@
-import firebase, { initializeApp } from "firebase/app"
-import "firebase/firestore"
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import '@firebase/auth';
+import '@firebase/firestore';
 
 let firebaseConfig = {
   apiKey: "AIzaSyA2ygKDCMMG8wk1IZQAw-wpNWK_9xpI-LU",
@@ -12,8 +14,6 @@ let firebaseConfig = {
 };
 
 // Initialize Firebase
-if(!firebase.getApps.length) {
-    const app = initializeApp(firebaseConfig);
-}
+const app = initializeApp(firebaseConfig);
 
-export default firebase
+export { app };

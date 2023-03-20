@@ -1,5 +1,9 @@
-import NextAuth from "next-auth"
+import { app } from "@/services/firebaseConection"
+import { collection, doc, getDocs, getFirestore, query, where } from "firebase/firestore/lite"
+import NextAuth, { Session } from "next-auth"
 import GithubProvider from "next-auth/providers/github"
+
+
 
 export const authOptions = {
   // Configure one or more authentication providers
@@ -12,11 +16,20 @@ export const authOptions = {
   ],
   callbacks: {
     async session({ session, token, user }) {
-      // Send properties to the client, like an access_token and user id from a provider.
-      session.accessToken = token.accessToken
-      session.user.id = token.id
+
+      const db = getFirestore(app)      
+      const docUsers = await getDocs(collection(db, "users"))        
+      const updateUser: any = []
       
-      return session
+      docUsers.forEach((doc) => {
+        return updateUser.push(doc.data())
+      })  
+
+      return {
+        ...session,
+        vip: updateUser[0]?.donate, 
+        lastDonate: updateUser[0]?.lastDonate
+      }
     }
 
     },

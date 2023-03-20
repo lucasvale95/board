@@ -10,6 +10,10 @@
     display: flex;
     align-items: center;
 
+    @media (max-width: 1130px){
+        margin: 0 1rem;
+    }
+
     img {
         cursor: pointer;
     }
@@ -17,6 +21,10 @@
     nav{
         margin-left: 5rem;
         height: 5rem;
+
+        @media (max-width: 1130px){
+            margin-left: 5%;
+        }
 
         a{
             display: inline-block;
@@ -27,6 +35,14 @@
             color: #FFF;
             & + a {
                 margin-left: 2rem;
+
+                @media (max-width: 1130px){
+                    margin-left: 0.5rem;
+                }
+            }
+
+            &:hover {
+                color: #ffb800;
             }
         }
     }
