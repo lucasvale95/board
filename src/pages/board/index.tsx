@@ -210,17 +210,17 @@ export default function Board( { user, data }: BoardProps ){
 }
 
 
-export const getServerSideProps: GetServerSideProps = async ({req}) => {
-
-    const session = await getSession({req});
-
-    if(!session?.user) {
-        return {
-            redirect: {
-                destination: '/',
-                permanent: false
-            }
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+    const session = await getSession({ req });
+  
+    if(!session?.user){
+      //Se o user nao tiver logado vamos redirecionar.
+      return{
+        redirect:{
+          destination: '/',
+          permanent: false
         }
+      }
     }
 
     const db = getFirestore(app)
@@ -236,12 +236,12 @@ export const getServerSideProps: GetServerSideProps = async ({req}) => {
             })));
         })
 
-    const user = {
-        nome: session?.user?.name,
-        email: session?.user?.email,
-        vip: session?.vip,
-        lastDonate: session?.lastDonate
-    }
+        const user = {
+            nome: session?.user.name,
+            id: session?.id,
+            vip: session?.vip,
+            lastDonate: session?.lastDonate
+        }
 
     return {
         props: {
